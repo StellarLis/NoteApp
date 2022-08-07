@@ -32,10 +32,16 @@ class AddFragment : Fragment() {
             Navigation.findNavController(view).navigate(R.id.action_addFragment_to_mainFragment)
         }
         binding.btnAddNote.setOnClickListener {
-            val title = binding.etAddTitle.text.toString()
-            val desc = binding.etAddDescription.text.toString()
-            vm.addNote(title, desc)
-            Navigation.findNavController(view).navigate(R.id.action_addFragment_to_mainFragment)
+            if (binding.etAddTitle.text.isEmpty()) {
+                binding.etAddTitle.error = "Field can`t be empty!"
+            } else if (binding.etAddDescription.text.isEmpty()) {
+                binding.etAddDescription.error = "Field can`t be empty!"
+            } else {
+                val title = binding.etAddTitle.text.toString()
+                val desc = binding.etAddDescription.text.toString()
+                vm.addNote(title, desc)
+                Navigation.findNavController(view).navigate(R.id.action_addFragment_to_mainFragment)
+            }
         }
     }
 }
